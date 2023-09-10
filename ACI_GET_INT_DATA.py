@@ -7,6 +7,8 @@ if __name__ == "__main__":
     headers = {
         'Content-Type': "application/json"
     }
-    cookie = aci.apic_login (base_url, "USERNAME", "PASSWORD")
-    pod_int_data = aci.get_pod_int_data(pod_list, node_list, interface_list, base_url, headers, cookie)
+    username = "USERNAME"
+    password = "PASSWORD"
+    cookie = aci.apic_login (base_url, username, password)
+    pod_int_data = aci.get_pod_int_data(pod_list, node_list, interface_list, base_url, headers, cookie, username, password)
     df_pod_int_data = aci.get_data_csv(pod_int_data, "POD_INT_DATA.csv")
