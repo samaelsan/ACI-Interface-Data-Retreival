@@ -145,7 +145,7 @@ def get_epg (base_url, interfaz, node, pod, headers, cookie):
             print (f"An unexpecter error was generated: {err}")  
 
 
-def get_int_data (base_url, interface, node, pod, headers, cookie):
+def get_int_data (base_url, interface, node, pod, headers, cookie, username, password):
     interfaces = dict()
     try:
         oper_data = get_oper_data (base_url, interface, node, pod, headers, cookie)
@@ -155,7 +155,7 @@ def get_int_data (base_url, interface, node, pod, headers, cookie):
         epg = get_epg (base_url, interface, node, pod, headers, cookie)
         if bool(oper_data) == False | bool(phys_if_data) == False | bool(mac_address) == False | bool(ip_address) == False | bool(epg) == False:
                 print ("Invalid Token. Generating...")
-                cookie = apic_login (base_url, "USERNAME", "PASSWORD")
+                cookie = apic_login (base_url, username, password)
                 print ("Token Generated. Retrying...")
         else:
             data_int = oper_data | phys_if_data | mac_address | ip_address | epg
@@ -164,7 +164,7 @@ def get_int_data (base_url, interface, node, pod, headers, cookie):
     except Exception as err:
         print (f"An unexpecter error was generated: {err}")
 
-def get_pod_int_data(pod_list, node_list, interface_list, base_url, headers, cookie):
+def get_pod_int_data(pod_list, node_list, interface_list, base_url, headers, cookie, username, password):
     try:
         pod_data = dict()
         for pod in pod_list:    
@@ -173,7 +173,7 @@ def get_pod_int_data(pod_list, node_list, interface_list, base_url, headers, coo
                 leaf_dict = dict()
                 int_data = list()
                 for interface in interface_list:
-                    int_data.append(get_int_data (base_url, interface, node, pod, headers, cookie))
+                    int_data.append(get_int_data (base_url, interface, node, pod, headers, cookie, username, password))
                 leaf_dict [f"Leaf {node}"] = int_data
                 leaf_list.append(leaf_dict)
             pod_data[f"POD {pod}"] = leaf_list   
