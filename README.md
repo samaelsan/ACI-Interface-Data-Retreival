@@ -17,7 +17,7 @@ Before running this script, ensure you have the following prerequisites:
 
    ```bash
    git clone https://github.com/samaelsan/ACI-Get-Interface-Data.git
-   cd ACI-Get-Interface-Data
+   cd ACI-Interface-Data-Retreival
 
 2. Install the required Python libraries if not already installed:
 
